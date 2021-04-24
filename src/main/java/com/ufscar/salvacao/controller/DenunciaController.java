@@ -1,6 +1,7 @@
 package com.ufscar.salvacao.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.ufscar.salvacao.model.Denuncia;
 import com.ufscar.salvacao.repository.DenunciaRepository;
@@ -27,6 +28,11 @@ public class DenunciaController {
     @GetMapping
     public List<Denuncia> findAllDenuncias() {
         return repository.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Denuncia> findById(@PathVariable(value="id") Integer id) {
+        return repository.findById(id);
     }
 
     @PostMapping
