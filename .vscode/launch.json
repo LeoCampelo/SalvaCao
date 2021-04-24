@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SalvacaoApplication<salvacao>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.ufscar.salvacao.SalvacaoApplication",
+            "projectName": "salvacao",
+            "args": ""
+        }
+    ]
+}
