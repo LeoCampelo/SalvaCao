@@ -31,6 +31,12 @@ public class Denuncia {
     @Column(name="raca")
     private String raca;
 
+    @Column(name="status")
+    private char status;
+
+    @Column(name="ind_anonimo")
+    private boolean indAnonimo;
+
     @Column(name="latitude")
     private String latitude;
 

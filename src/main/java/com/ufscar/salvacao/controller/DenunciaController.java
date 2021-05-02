@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.ufscar.salvacao.model.Denuncia;
 import com.ufscar.salvacao.repository.DenunciaRepository;
+import com.ufscar.salvacao.service.DenunciaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,9 +26,17 @@ public class DenunciaController {
     @Autowired
     private DenunciaRepository repository;
 
+    @Autowired
+    private DenunciaService service;
+
     @GetMapping
     public List<Denuncia> findAllDenuncias() {
         return repository.findAll();
+    }
+
+    @GetMapping("/status/{status}")
+    public List<Denuncia> findAllDenunciasByStatus(@PathVariable(value = "status") char status) {
+        return service.findAllDenunciasByStatus(status);
     }
 
     @GetMapping("/{id}")
