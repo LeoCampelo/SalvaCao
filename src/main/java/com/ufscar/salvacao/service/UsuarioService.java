@@ -18,7 +18,7 @@ public class UsuarioService {
     private PasswordEncoder passwordEncoder;
 
     public Usuario save(Usuario usuario) throws UsuarioException {
-        if(usuarioExistente(usuario.getLogin())) {
+        if(usuarioExistente(usuario.getEmail())) {
             throw new UsuarioException("Usuário já cadastrado!");
         } 
 
@@ -26,8 +26,8 @@ public class UsuarioService {
         return repository.save(usuario);
     }
 
-    private boolean usuarioExistente(String login) {
-        Usuario usuario = repository.findByLogin(login);
+    private boolean usuarioExistente(String email) {
+        Usuario usuario = repository.findByEmail(email);
 
         if(usuario != null) 
             return true;

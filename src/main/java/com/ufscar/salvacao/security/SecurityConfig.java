@@ -33,10 +33,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity.csrf().disable().authorizeRequests()
-            .antMatchers("/authenticate").permitAll()
+            .antMatchers("/oauth2/**").permitAll()
+            .antMatchers("/authenticate", "/authenticate/**").permitAll()
             .antMatchers("/cadastro").permitAll()
             .antMatchers("/denuncias").permitAll()
-            .anyRequest().authenticated()
+            .anyRequest().authenticated() 
             .and().sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
