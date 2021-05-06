@@ -8,4 +8,5 @@ import lombok.Data;
 public class AuthenticationResponse implements Serializable {
 
     private final String jwt;
+    private final String expira;
 }
