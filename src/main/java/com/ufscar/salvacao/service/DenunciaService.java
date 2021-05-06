@@ -1,7 +1,6 @@
 package com.ufscar.salvacao.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.ufscar.salvacao.model.Denuncia;
 import com.ufscar.salvacao.repository.DenunciaRepository;
