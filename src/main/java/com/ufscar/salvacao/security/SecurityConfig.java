@@ -7,6 +7,7 @@ import com.ufscar.salvacao.filter.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -32,11 +33,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
-        httpSecurity.csrf().disable().authorizeRequests()
-            .antMatchers("/oauth2/**").permitAll()
+        httpSecurity.csrf().disable()
+            .authorizeRequests().antMatchers("/oauth2/**").permitAll().and()
+            .authorizeRequests().antMatchers(HttpMethod.GET,"/denuncias").permitAll().and()
+            .authorizeRequests().antMatchers(HttpMethod.GET,"/denuncias/**").permitAll()
             .antMatchers("/authenticate", "/authenticate/**").permitAll()
             .antMatchers("/cadastro").permitAll()
-            .antMatchers("/denuncias").permitAll()
             .anyRequest().authenticated() 
             .and().sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
