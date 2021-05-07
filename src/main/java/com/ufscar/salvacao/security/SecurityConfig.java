@@ -34,11 +34,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity.csrf().disable()
-            .authorizeRequests().antMatchers("/oauth2/**").permitAll().and()
             .authorizeRequests().antMatchers(HttpMethod.GET,"/denuncias").permitAll().and()
-            .authorizeRequests().antMatchers(HttpMethod.GET,"/denuncias/**").permitAll()
-            .antMatchers("/authenticate", "/authenticate/**").permitAll()
-            .antMatchers("/cadastro").permitAll()
+            .authorizeRequests().antMatchers(HttpMethod.GET,"/denuncias/**").permitAll().and()
+            .authorizeRequests().antMatchers(HttpMethod.POST,"/authenticate").permitAll().and()
+            .authorizeRequests().antMatchers(HttpMethod.POST,"/authenticate/**").permitAll().and()
+            .authorizeRequests().antMatchers(HttpMethod.POST,"/cadastro").permitAll()
             .anyRequest().authenticated() 
             .and().sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
