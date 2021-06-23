@@ -52,6 +52,6 @@ public class Denuncia {
     private String author;
 
     @Column(name="usuario_id")
-    private int usuarioId;
+    private String usuarioId;
 
 }
