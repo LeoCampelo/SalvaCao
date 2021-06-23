@@ -1,5 +1,7 @@
 package com.ufscar.salvacao.controller;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,15 +48,22 @@ public class DenunciaController {
 
     @PostMapping
     public ResponseEntity<Denuncia> saveDenuncia(@RequestBody Denuncia denuncia) {
-        denuncia = repository.save(denuncia);
+        denuncia.setData(LocalDateTime.now(ZoneId.of("America/Sao_Paulo")));
+        denuncia = service.saveDenuncia(denuncia);
 
         return new ResponseEntity<Denuncia>(denuncia, HttpStatus.CREATED);
     }
 
     @PutMapping
     public ResponseEntity<Denuncia> updateDenuncia(@RequestBody Denuncia denuncia) {
-        denuncia = repository.save(denuncia);
+        denuncia = service.updateDenuncia(denuncia);
 
+        return new ResponseEntity<Denuncia>(denuncia, HttpStatus.OK);
+    }
+
+    @PutMapping("{id}/{status}")
+    public ResponseEntity<Denuncia> updateStatus(@PathVariable(value="id") Integer id, @PathVariable(value="status") char status) {
+        Denuncia denuncia = service.updateStatus(id, status);
         return new ResponseEntity<Denuncia>(denuncia, HttpStatus.OK);
     }
 

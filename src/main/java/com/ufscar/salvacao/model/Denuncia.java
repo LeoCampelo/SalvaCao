@@ -1,5 +1,7 @@
 package com.ufscar.salvacao.model;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,5 +44,11 @@ public class Denuncia {
 
     @Column(name="longitude")
     private String longitude;
+
+    @Column(name="data")
+    private LocalDateTime data;
+
+    @Column(name="autor")
+    private String author;
 
 }

@@ -14,8 +14,34 @@ public class DenunciaService {
     @Autowired
     private DenunciaRepository repository;
 
+    @Autowired
+    private ComentarioService comentarioService;
+
     public List<Denuncia> findAllDenunciasByStatus(char status) {
         return repository.findAllDenunciasByStatus(status);
+    }
+
+    public Denuncia saveDenuncia(Denuncia denuncia) {
+        denuncia = repository.save(denuncia);
+        comentarioService.comentarioDenunciaAberta(denuncia);
+        return denuncia;
+    }
+
+    public Denuncia updateStatus(int id, char status) {
+        Denuncia denuncia = repository.findById(id).get();
+        denuncia.setStatus(status);
+        comentarioService.comentarioStatus(denuncia);
+        return repository.save(denuncia);
+    }
+
+    public Denuncia updateDenuncia(Denuncia denuncia) {
+        Denuncia report = repository.findById(denuncia.getId()).get();
+
+        if(report.getStatus() != denuncia.getStatus()) {
+            comentarioService.comentarioStatus(denuncia);
+        }
+
+        return repository.save(denuncia);
     }
 
 }

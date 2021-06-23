@@ -37,6 +37,9 @@ public class Usuario implements UserDetails {
     @Column(name="auth_provider")
     private AuthenticationProvider authProvider;
 
+    @Column(name="is_admin")
+    private boolean isAdmin = false;
+
     @ManyToMany
     @JoinTable(name = "usuarios_roles", joinColumns = @JoinColumn(
                 name = "usuario_id", referencedColumnName = "email"),

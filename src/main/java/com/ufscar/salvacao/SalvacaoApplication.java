@@ -9,7 +9,7 @@ public class SalvacaoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SalvacaoApplication.class, args);
-		//System.out.println(new BCryptPasswordEncoder().encode("admin"));
+		System.out.println(new BCryptPasswordEncoder().encode("admin"));
 	}
 
 }

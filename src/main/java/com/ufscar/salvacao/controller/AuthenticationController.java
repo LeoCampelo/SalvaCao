@@ -6,6 +6,8 @@ import java.util.TimeZone;
 import com.ufscar.salvacao.model.AuthenticationRequest;
 import com.ufscar.salvacao.model.AuthenticationRequestGoogle;
 import com.ufscar.salvacao.model.AuthenticationResponse;
+import com.ufscar.salvacao.model.Usuario;
+import com.ufscar.salvacao.repository.UsuarioRepository;
 import com.ufscar.salvacao.security.ImplementsUserDetailsService;
 import com.ufscar.salvacao.util.JwtUtil;
 
@@ -33,6 +35,9 @@ public class AuthenticationController {
     @Autowired
     private JwtUtil jwtUtil;
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
     @PostMapping
     public ResponseEntity<?> createAthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
         try {
@@ -47,7 +52,13 @@ public class AuthenticationController {
 
         Calendar c = Calendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo"));
 
-        return ResponseEntity.ok(new AuthenticationResponse(jwt, c.getTime().toString()));
+        AuthenticationResponse response = new AuthenticationResponse(jwt, c.getTime().toString());
+        Usuario usuario = usuarioRepository.findByEmail(authenticationRequest.getEmail());
+        response.setEmail(usuario.getEmail());
+        response.setNome(usuario.getNome());
+        response.setAdmin(usuario.isAdmin());
+
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/google")

@@ -33,4 +33,15 @@ public class UsuarioService {
             return true;
         return false;
     }
+
+    public void update(Usuario usuario) {
+        Usuario user = repository.findByEmail(usuario.getEmail());
+
+        if(!passwordEncoder.matches(usuario.getSenha(), user.getSenha())) {
+            usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
+        }
+
+        repository.save(usuario);
+    }
+
 }
