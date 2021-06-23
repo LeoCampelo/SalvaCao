@@ -51,4 +51,7 @@ public class Denuncia {
     @Column(name="autor")
     private String author;
 
+    @Column(name="usuario_id")
+    private int usuarioId;
+
 }
