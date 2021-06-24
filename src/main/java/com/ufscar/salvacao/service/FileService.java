@@ -1,6 +1,8 @@
 package com.ufscar.salvacao.service;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 import com.google.api.client.util.Base64;
@@ -22,7 +24,7 @@ public class FileService {
     private FileRepository repository;
 
     public File upload(File file) throws IOException {
-        final String fileName = file.getName();
+        final String fileName = LocalDateTime.now(ZoneId.of("America/Sao_Paulo")) + "_" + file.getName();
 
         String contentType = file.getFileBase64().split(",")[0].split(";")[0].split(":")[1];
         String fileBase64 = file.getFileBase64().split(",")[1];
