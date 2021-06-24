@@ -31,11 +31,11 @@ public class ComentarioService {
         Comentario comentario = new Comentario(commentDTO);
 
         if(commentDTO.getStatus() == 'A') {
-            comentario.setComment("Caso reaberto");
+            comentario.setComment("A");
         } else if(commentDTO.getStatus() == 'P') {
-            comentario.setComment("Caso sendo processado");
+            comentario.setComment("P");
         } else if(commentDTO.getStatus() == 'F') {
-            comentario.setComment("Caso encerrado");
+            comentario.setComment("F");
         }
 
         repository.save(comentario);
