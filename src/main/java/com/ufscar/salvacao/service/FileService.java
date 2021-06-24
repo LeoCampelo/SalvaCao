@@ -24,9 +24,14 @@ public class FileService {
     public File upload(File file) throws IOException {
         final String fileName = file.getName();
 
-        byte[] decodedBytes = Base64.decodeBase64(file.getFileBase64());
+        String contentType = file.getFileBase64().split(",")[0].split(";")[0].split(":")[1];
+        String fileBase64 = file.getFileBase64().split(",")[1];
+        byte[] decodedBytes = Base64.decodeBase64(fileBase64);
 
-        BlobInfo blobInfo = storage.create(BlobInfo.newBuilder("salvacao-api", fileName).build(), decodedBytes);
+        BlobInfo blobInfo = storage.create(BlobInfo.newBuilder("salvacao-api", fileName)
+                                            .setContentType(contentType)
+                                            .build(), 
+                                            decodedBytes);
 
         file.setUrl(blobInfo.getMediaLink());
         return repository.save(file);
