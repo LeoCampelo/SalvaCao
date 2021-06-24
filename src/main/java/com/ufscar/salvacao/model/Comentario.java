@@ -1,6 +1,7 @@
 package com.ufscar.salvacao.model;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,5 +42,11 @@ public class Comentario {
         this.reportId = denuncia.getId();
         this.date = denuncia.getData();
         this.author = denuncia.getAuthor();
+    }
+
+    public Comentario(CommentDTO commentDTO) {
+        this.reportId = commentDTO.getReportId();
+        this.date = LocalDateTime.now(ZoneId.of("America/Sao_Paulo"));
+        this.author = commentDTO.getAuthor();
     }
 }

@@ -5,6 +5,7 @@ import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 
+import com.ufscar.salvacao.model.CommentDTO;
 import com.ufscar.salvacao.model.Denuncia;
 import com.ufscar.salvacao.repository.DenunciaRepository;
 import com.ufscar.salvacao.service.DenunciaService;
@@ -54,16 +55,10 @@ public class DenunciaController {
         return new ResponseEntity<Denuncia>(denuncia, HttpStatus.CREATED);
     }
 
-    @PutMapping
-    public ResponseEntity<Denuncia> updateDenuncia(@RequestBody Denuncia denuncia) {
-        denuncia = service.updateDenuncia(denuncia);
+    @PostMapping("/atualizarStatus") 
+    public ResponseEntity<Denuncia> updateStatus(@RequestBody CommentDTO commentDTO) {
+        Denuncia denuncia = service.updateStatusDenuncia(commentDTO);
 
-        return new ResponseEntity<Denuncia>(denuncia, HttpStatus.OK);
-    }
-
-    @PutMapping("{id}/{status}")
-    public ResponseEntity<Denuncia> updateStatus(@PathVariable(value="id") Integer id, @PathVariable(value="status") char status) {
-        Denuncia denuncia = service.updateStatus(id, status);
         return new ResponseEntity<Denuncia>(denuncia, HttpStatus.OK);
     }
 

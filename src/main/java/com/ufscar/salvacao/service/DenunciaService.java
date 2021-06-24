@@ -2,6 +2,7 @@ package com.ufscar.salvacao.service;
 
 import java.util.List;
 
+import com.ufscar.salvacao.model.CommentDTO;
 import com.ufscar.salvacao.model.Denuncia;
 import com.ufscar.salvacao.repository.DenunciaRepository;
 
@@ -27,21 +28,12 @@ public class DenunciaService {
         return denuncia;
     }
 
-    public Denuncia updateStatus(int id, char status) {
-        Denuncia denuncia = repository.findById(id).get();
-        denuncia.setStatus(status);
-        comentarioService.comentarioStatus(denuncia);
-        return repository.save(denuncia);
-    }
+    public Denuncia updateStatusDenuncia(CommentDTO commentDTO) {
+        Denuncia report = repository.findById(commentDTO.getReportId()).get();
+        report.setStatus(commentDTO.getStatus());
+        comentarioService.comentarioStatus(commentDTO);
 
-    public Denuncia updateDenuncia(Denuncia denuncia) {
-        Denuncia report = repository.findById(denuncia.getId()).get();
-
-        if(report.getStatus() != denuncia.getStatus()) {
-            comentarioService.comentarioStatus(denuncia);
-        }
-
-        return repository.save(denuncia);
+        return repository.save(report);
     }
 
 }

@@ -3,6 +3,7 @@ package com.ufscar.salvacao.service;
 import java.util.List;
 
 import com.ufscar.salvacao.model.Comentario;
+import com.ufscar.salvacao.model.CommentDTO;
 import com.ufscar.salvacao.model.Denuncia;
 import com.ufscar.salvacao.repository.ComentarioRepository;
 
@@ -21,19 +22,19 @@ public class ComentarioService {
 
     public void comentarioDenunciaAberta(Denuncia denuncia) {
         Comentario comentario = new Comentario(denuncia);
-        comentario.setComment("Caso aberto!");
+        comentario.setComment("Caso aberto");
 
         repository.save(comentario);
     }
 
-    public void comentarioStatus(Denuncia denuncia) {
-        Comentario comentario = new Comentario(denuncia);
+    public void comentarioStatus(CommentDTO commentDTO) {
+        Comentario comentario = new Comentario(commentDTO);
 
-        if(denuncia.getStatus() == 'A') {
+        if(commentDTO.getStatus() == 'A') {
             comentario.setComment("Caso reaberto");
-        } else if(denuncia.getStatus() == 'P') {
+        } else if(commentDTO.getStatus() == 'P') {
             comentario.setComment("Caso sendo processado");
-        } else if(denuncia.getStatus() == 'F') {
+        } else if(commentDTO.getStatus() == 'F') {
             comentario.setComment("Caso encerrado");
         }
 
