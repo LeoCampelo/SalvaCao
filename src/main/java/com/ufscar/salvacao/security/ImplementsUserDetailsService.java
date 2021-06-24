@@ -35,6 +35,20 @@ public class ImplementsUserDetailsService implements UserDetailsService{
         return new User(usuario.getUsername(), usuario.getPassword(), true, true, true, true, usuario.getAuthorities());
     }
 
+    public UserDetails loadUser(String email) throws UsernameNotFoundException {
+        Usuario usuario = repository.findByEmail(email);
+
+        if(usuario == null) 
+            throw new UsernameNotFoundException("Usuário não encontrado");
+
+        List<Role> roles = new ArrayList<>();
+        usuario.setRoles(roles);
+        
+        if(usuario.getPassword() == null) 
+            return new User(usuario.getUsername(), "", true, true, true, true, usuario.getAuthorities());
+        return new User(usuario.getUsername(), usuario.getPassword(), true, true, true, true, usuario.getAuthorities());
+    }
+
     public UserDetails loadUserByUsernameGoogle(AuthenticationRequestGoogle authenticationRequest) throws UsernameNotFoundException {
         Usuario usuario = repository.findByEmail(authenticationRequest.getEmail());
 

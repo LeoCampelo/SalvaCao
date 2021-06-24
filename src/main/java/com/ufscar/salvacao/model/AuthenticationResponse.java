@@ -8,14 +8,12 @@ import lombok.Data;
 public class AuthenticationResponse implements Serializable {
 
     private String jwt;
-    private String expira;
     private String nome;
     private String email;
     private boolean isAdmin;
 
-    public AuthenticationResponse(String jwt, String expira) {
+    public AuthenticationResponse(String jwt) {
         this.jwt = jwt;
-        this.expira = expira;
     }
 
 }

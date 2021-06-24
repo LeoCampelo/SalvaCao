@@ -1,8 +1,5 @@
 package com.ufscar.salvacao.controller;
 
-import java.util.Calendar;
-import java.util.TimeZone;
-
 import com.ufscar.salvacao.model.AuthenticationRequest;
 import com.ufscar.salvacao.model.AuthenticationRequestGoogle;
 import com.ufscar.salvacao.model.AuthenticationResponse;
@@ -50,11 +47,9 @@ public class AuthenticationController {
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmail());
         final String jwt = jwtUtil.generateToken(userDetails);
 
-        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo"));
-
-        AuthenticationResponse response = new AuthenticationResponse(jwt, c.getTime().toString());
+        AuthenticationResponse response = new AuthenticationResponse(jwt);
         Usuario usuario = usuarioRepository.findByEmail(authenticationRequest.getEmail());
-        response.setEmail(usuario.getEmail());
+        response.setEmail(usuario.getEmail()); 
         response.setNome(usuario.getNome());
         response.setAdmin(usuario.isAdmin());
 
@@ -67,9 +62,7 @@ public class AuthenticationController {
 
         final String jwt = jwtUtil.generateToken(userDetails);
 
-        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo"));
-
-        return ResponseEntity.ok(new AuthenticationResponse(jwt, c.getTime().toString()));
+        return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
 
 }
